@@ -13,7 +13,7 @@ def main():
 
     # Iterate over all the features to find the one that needs altering
     newFeatures = list(filter(lambda x : x['properties']['type'] != "FLOOR", d['features']))
-    sys.stderr.write(filename + ": removed " + (len(d['features']) - len(newFeatures)) + " features")
+    sys.stderr.write(filename + ": removed " + str(len(d['features']) - len(newFeatures)) + " feature(s)\n")
     d['features'] = newFeatures
     print(json.dumps(d))
 

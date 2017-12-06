@@ -12,16 +12,17 @@ def main():
     d = json.load(json_data)
 
     # Iterate over all the features to find the one that needs altering
+    changes = 0
     for feature in d['features']:
         geometryType = feature['geometry']['type']
         objectType = feature['properties']['type']
 
         if geometryType == "LineString" and objectType == "ROOM":
-          sys.stderr.write(filename + ": Anomaly found!!\n")
+          changes += 1 
           feature['geometry']['type'] = "Polygon"
-          feature['properties']['editinfo'] = "Was LineString, is Polygon"
           feature['geometry']['coordinates'] = [feature['geometry']['coordinates']]
 
+    sys.stderr.write(filename +": " + str(changes) + " features changed\n")
     print(json.dumps(d))
 
 if __name__ == "__main__":
